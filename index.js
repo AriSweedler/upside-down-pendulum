@@ -10,7 +10,8 @@ var config = {
     },
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
 
@@ -25,23 +26,36 @@ function preload ()
     this.load.image('red', 'assets/particles/red.png');
 }
 
+var logo;
 function create ()
 {
-    this.add.image(400, 300, 'sky');
+  /* make the sky */
+  this.add.image(400, 300, 'sky');
 
-    var particles = this.add.particles('red');
+  /* make the logo */
+  logo = this.physics.add.image(400, 100, 'logo');
+  logo.setVelocity(100, 200);
+  logo.setBounce(1, 1);
+  logo.setCollideWorldBounds(true);
 
-    var emitter = particles.createEmitter({
-        speed: 100,
-        scale: { start: 1, end: 0 },
-        blendMode: 'ADD'
-    });
+  /* make a particle emitter and attach it to the logo */
+  var particles = this.add.particles('red');
+  var emitter = particles.createEmitter({
+      speed: 100,
+      scale: { start: 1, end: 0 },
+      blendMode: 'ADD'
+  });
+  emitter.startFollow(logo);
 
-    var logo = this.physics.add.image(400, 100, 'logo');
+  /* set up keyboard input */
+  this.cursors = this.input.keyboard.createCursorKeys();
+}
 
-    logo.setVelocity(100, 200);
-    logo.setBounce(1, 1);
-    logo.setCollideWorldBounds(true);
+function update(time, delta) {
 
-    emitter.startFollow(logo);
+  if (this.cursors.left.isDown) {
+    console.log(`Time: ${time}. Delta: ${delta}`);
+  }
+
+  //Collider physics happens at the end
 }
