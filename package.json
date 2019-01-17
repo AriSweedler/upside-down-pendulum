@@ -1,0 +1,12 @@
+{
+  "name": "upside-down-pendulum",
+  "version": "1.0.0",
+  "description": "An upside down pendulum (in wall time, not cpu time)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Ari Sweedler",
+  "license": "ISC"
+}
